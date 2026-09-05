@@ -1,0 +1,59 @@
+{
+  "name": "real-tech-yt-downloader",
+  "version": "1.0.0",
+  "description": "Real Tech YT Downloader powered by yt-dlp and FFmpeg",
+  "main": "main.js",
+  "author": "Pasindu Sandaruwan",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "setup-bin": "node scripts/download-binaries.js",
+    "fix-wincodesign": "node scripts/fix-wincodesign.js",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win nsis"
+  },
+  "dependencies": {
+    "tree-kill": "^1.2.2"
+  },
+  "devDependencies": {
+    "electron": "^31.2.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.realtech.ytdownloader",
+    "productName": "Real-Tech-YT-Downloader",
+    "artifactName": "Real-Tech-YT-Downloader-Setup-${version}.${ext}",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "styles.css",
+      "renderer.js",
+      "assets/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "bin",
+        "to": "bin",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "forceCodeSigning": false,
+    "win": {
+      "target": ["nsis"],
+      "icon": "assets/icon.png",
+      "sign": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
+  }
+}
